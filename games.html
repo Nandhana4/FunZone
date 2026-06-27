@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FunZone Games</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background-color: #fff8dc;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #ffcccb;
+      padding: 15px;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .game-box {
+      background: #fff7cc;
+      border: 3px dashed #ffc107;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .game-box button {
+      background-color: #ff6f91;
+      color: white;
+      padding: 10px 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    .game-box button:hover {
+      background-color: #ff3e6c;
+    }
+
+    input {
+      padding: 5px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .emoji-options span {
+      font-size: 30px;
+      margin: 10px;
+      cursor: grab;
+    }
+
+    .drop-zone {
+      margin-top: 20px;
+      font-size: 30px;
+      padding: 20px;
+      border: 2px dashed #aaa;
+      border-radius: 10px;
+      background-color: #f0f8ff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #ffd6e0;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎮 Play FunZone Mini-Games! 🕹️</h1>
+    <nav>
+      <ul class="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="stories.html">Stories</a></li>
+        <li><a href="Crafts.html">crafts</a></li>
+        <li><a href="Coloring-gallery.html">coloring</a></li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Start Game Button -->
+    <div class="game-box" id="startBox">
+      <h2>🚀 Ready to Play?</h2>
+      <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <!-- Game Section (hidden until Start) -->
+    <div id="gamesContainer" style="display: none;">
+      <div class="game-box">
+        <p>Score: <span id="score">0</span></p>
+        <p>⏱️ Time Left: <span id="timer">30</span> seconds</p>
+
+        <h2>😊 Emoji Match!</h2>
+        <p>Match this emoji:</p>
+        <p id="emojiChallenge" style="font-size: 40px;">🦁</p>
+        <input id="emojiInput" placeholder="Type the same emoji here" />
+        <button onclick="checkEmoji()">Check</button>
+        <button onclick="newEmoji()">🔄 New Emoji</button>
+        <div id="emojiChoices" class="emoji-options"></div>
+<p id="emojiResult"></p>
+      </div>
+
+      <div class="game-box">
+        <h2>🎯 Drag the Matching Emoji!</h2>
+        <p>Match this emoji:</p>
+        <div id="targetEmoji" style="font-size: 40px; margin-bottom: 10px;">🐶</div>
+
+        <div id="emojiOptions" class="emoji-options"></div>
+
+        <div
+          id="dropZone"
+          class="drop-zone"
+          ondragover="event.preventDefault()"
+          ondrop="handleDrop(event)"
+        >
+          🧺 Drop here!
+        </div>
+
+        <p id="dragResult"></p>
+        <button onclick="newDragEmoji()">🔄 New Match</button>
+      </div>
+
+      <div class="game-box">
+        <h2>🔢 Guess the Number (1-10)</h2>
+        <input type="number" id="guessInput" placeholder="Your guess" />
+        <button onclick="checkGuess()">Guess</button>
+        <p id="guessResult"></p>
+      </div>
+
+      <div class="game-box">
+        <h2>🌈 Magic Color Button</h2>
+        <button onclick="changeBackground()">Change Background</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>🌟 FunZone &copy; 2025 | Enjoy and Learn! 🎲</p>
+  </footer>
+
+  <script>
+    // Guess the Number
+    const number = Math.floor(Math.random() * 10) + 1;
+    function checkGuess() {
+      const userGuess = parseInt(document.getElementById("guessInput").value);
+      const result = document.getElementById("guessResult");
+      if (userGuess === number) {
+        result.textContent = "🎉 You guessed it right!";
+      } else {
+        result.textContent = "❌ Try again!";
+      }
+    }
+
+    // Background Color Changer
+    function changeBackground() {
+      const colors = ["#fcd5ce", "#d0f4de", "#a9def9", "#e4c1f9", "#fdffb6"];
+      document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // Emoji Match Typing Game
+    const emojiList = ["🐶", "🐱", "🦁", "🐯", "🐸", "🐵", "🐰", "🐼", "🐷", "🐮", "🐤", "🦄", "🐳", "🦕", "🐙"];
+    let currentEmoji = "";
+
+    function newEmoji() {
+      const randomIndex = Math.floor(Math.random() * emojiList.length);
+      currentEmoji = emojiList[randomIndex];
+      document.getElementById("emojiChallenge").textContent = currentEmoji;
+      document.getElementById("emojiResult").textContent = "";
+      document.getElementById("emojiInput").value = "";
+      // Show clickable emoji options
+const emojiChoices = document.getElementById("emojiChoices");
+emojiChoices.innerHTML = "";
+
+const shuffledChoices = [...emojiList].sort(() => 0.5 - Math.random()).slice(0, 6);
+shuffledChoices.forEach((emoji) => {
+  const span = document.createElement("span");
+  span.textContent = emoji;
+  span.style.cursor = "pointer";
+  span.onclick = () => {
+    document.getElementById("emojiInput").value = emoji;
+  };
+  emojiChoices.appendChild(span);
+});
+
+    }
+
+    function checkEmoji() {
+      const input = document.getElementById("emojiInput").value.trim();
+      const result = document.getElementById("emojiResult");
+      if (input === currentEmoji) {
+        result.textContent = "🎉 Yay! You matched it!";
+        increaseScore();
+      } else {
+        result.textContent = "❌ Try again, little star!";
+      }
+    }
+
+    // Drag and Drop Game
+    const dragEmojis = ["🐶", "🐱", "🐸", "🐵", "🦁", "🐰", "🐷"];
+    let currentDragEmoji = "";
+
+    function newDragEmoji() {
+      const target = document.getElementById("targetEmoji");
+      const options = document.getElementById("emojiOptions");
+      const result = document.getElementById("dragResult");
+
+      currentDragEmoji = dragEmojis[Math.floor(Math.random() * dragEmojis.length)];
+      target.textContent = currentDragEmoji;
+      result.textContent = "";
+
+      const shuffled = [...dragEmojis].sort(() => 0.5 - Math.random());
+      options.innerHTML = "";
+      shuffled.slice(0, 5).forEach(emoji => {
+        const span = document.createElement("span");
+        span.textContent = emoji;
+        span.classList.add("emoji-draggable");
+        span.setAttribute("draggable", "true");
+        span.setAttribute("data-emoji", emoji);
+        span.ondragstart = (e) => e.dataTransfer.setData("text/plain", emoji);
+        options.appendChild(span);
+      });
+    }
+
+    function handleDrop(event) {
+      event.preventDefault();
+      const droppedEmoji = event.dataTransfer.getData("text/plain");
+      const result = document.getElementById("dragResult");
+
+      if (droppedEmoji === currentDragEmoji) {
+        result.textContent = "✅ Great match!";
+        correctSound.play();
+        increaseScore();
+      } else {
+        result.textContent = "❌ Oops, try again!";
+        wrongSound.play();
+      }
+    }
+
+    // Score & Timer
+    let score = 0;
+    function increaseScore() {
+      score++;
+      document.getElementById("score").textContent = score;
+    }
+
+    let timeLeft = 30;
+    let timerInterval;
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timeLeft = 30;
+      document.getElementById("timer").textContent = timeLeft;
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById("timer").textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          alert("⏰ Time's up! Your score: " + score);
+          resetGame();
+        }
+      }, 1000);
+    }
+
+    function resetGame() {
+      score = 0;
+      document.getElementById("score").textContent = score;
+      newDragEmoji();
+      newEmoji();
+      startTimer();
+    }
+
+    // Sound Effects
+    const correctSound = new Audio("https://www.soundjay.com/buttons/sounds/button-3.mp3");
+    const wrongSound = new Audio("https://www.soundjay.com/buttons/sounds/button-10.mp3");
+
+    // Start Game Function
+    function startGame() {
+      document.getElementById("startBox").style.display = "none";
+      document.getElementById("gamesContainer").style.display = "block";
+      newEmoji();
+      newDragEmoji();
+      startTimer();
+    }
+  </script>
+</body>
+</html>

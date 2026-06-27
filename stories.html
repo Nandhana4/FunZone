@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FunZone Stories</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background-color: #fdf6e3;
+      margin: 0;
+      padding: 0;
+      color: #444;
+      transition: background-color 0.5s, color 0.5s;
+    }
+
+    body.dark-mode {
+      background-color: #2c3e50;
+      color: #ecf0f1;
+    }
+
+    header {
+      background-color: #ffcccb;
+      text-align: center;
+      padding: 20px;
+    }
+
+    nav {
+      background-color: #ffe0e0;
+      text-align: center;
+      padding: 10px;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .toggle-btn {
+      margin-top: 10px;
+      padding: 8px 15px;
+      background: #f48fb1;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    .story-container {
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .story {
+      background: #fff7cc;
+      border: 2px dashed #f4a261;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .story.dark-mode {
+      background: #34495e;
+      border-color: #f39c12;
+    }
+
+    .story h2 {
+      color: #e76f51;
+    }
+
+    .story img {
+      width: 50%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-top: 10px;
+    }
+
+    .buttons {
+      margin-top: 10px;
+    }
+
+    .buttons button {
+      margin: 5px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      background: #ffb347;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      background-color: #ffd6e0;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+/* Quiz & Sound Buttons */
+.story-quiz button,
+button[onclick^="playSound"] {
+  background-color: #ffb347;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 15px;
+  margin: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: 'Comic Sans MS', cursive;
+  transition: 0.3s;
+}
+
+.story-quiz button:hover,
+button[onclick^="playSound"]:hover {
+  background-color: #ff9900;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Correct and wrong buttons will be colored by JS after click */
+.story-quiz button:active,
+button[onclick^="playSound"]:active {
+  transform: scale(0.95);
+}
+
+
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📖 FunZone Stories</h1>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="games.html">Games</a>
+  <a href="stories.html">Stories</a>
+  <a href="Crafts.html">crafts</a>
+  <a href="Coloring-gallery.html">coloring</a>
+  <button class="toggle-btn" onclick="toggleDarkMode()">🌗 Toggle Mode</button>
+</nav>
+
+<div class="story-container">
+
+  <div class="story" id="story1">
+    <h2>🐱 The Curious Cat's Adventure</h2>
+    <p class="story-text">
+      Once upon a time, there was a curious little cat named Coco who wanted to explore beyond her garden. One sunny morning, she set off on a big adventure and met a wise owl, a jumping frog, and even helped a lost chick find its way home!
+    </p>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRejRuz4VG0NsQKSWl2uX44G_oR8RQsbXeu5A&s" alt="Cat Adventure" />
+    <div class="buttons">
+      <button onclick="readStory('story1')">🔊 Read Aloud</button>
+      <button onclick="toggleText(this)">📖 Read Less</button>
+    </div>
+  </div>
+<!-- Sound Effect -->
+<button onclick="playSound('catSound')">🐾 Play Meow Sound</button>
+<audio id="catSound" src="C:\Users\USER\Downloads\Two Cats Meowing - QuickSounds.com.mp3"></audio>
+
+<!-- Quiz for Curious Cat Story -->
+<div class="story-quiz">
+  <h3>🧠 Quiz Time!</h3>
+
+  <p>1. What did the curious cat want to explore?</p>
+  <button onclick="checkAnswer(this, false)">🛏️ The bedroom</button>
+  <button onclick="checkAnswer(this, true)">🌆 The world outside</button>
+  <button onclick="checkAnswer(this, false)">🍽️ The kitchen</button>
+
+  <p>2. How did the cat find its way back?</p>
+  <button onclick="checkAnswer(this, true)">👃 By following its scent trail</button>
+  <button onclick="checkAnswer(this, false)">🧭 Using a map</button>
+  <button onclick="checkAnswer(this, false)">📞 Calling home</button>
+</div>
+
+  <div class="story" id="story2">
+    <h2>🦊 Felix the Fox Finds a Friend</h2>
+    <p class="story-text">
+      Felix the Fox loved playing hide and seek, but he always played alone. One day, he stumbled upon a shy turtle named Timmy. With kindness and patience, Felix helped Timmy come out of his shell — and the two became the best of friends!
+    </p>
+    <img src="https://i.pinimg.com/736x/7a/3a/51/7a3a519e146464f9839c6e24d4111135.jpg" alt="Fox and Turtle" />
+    <div class="buttons">
+      <button onclick="readStory('story2')">🔊 Read Aloud</button>
+      <button onclick="toggleText(this)">📖 Read Less</button>
+    </div>
+  </div>
+<!-- Sound Effect -->
+<button onclick="playSound('foxSound')">🦊 Play Fox sound</button>
+<audio id="foxSound" src="C:\Users\USER\Downloads\Fox Howl - QuickSounds.com (1).mp3"></audio>
+
+<!-- Quiz -->
+<div class="story-quiz">
+  <h3>🧠 Quiz Time!</h3>
+
+  <p>1. What was Felix looking for?</p>
+  <button onclick="checkAnswer(this, false)">🍗 Food</button>
+  <button onclick="checkAnswer(this, true)">👫 A friend</button>
+  <button onclick="checkAnswer(this, false)">🏡 A new home</button>
+
+  <p>2. Who did Felix become friends with?</p>
+  <button onclick="checkAnswer(this, true)">🐰 A rabbit</button>
+  <button onclick="checkAnswer(this, false)">🐢 A turtle</button>
+  <button onclick="checkAnswer(this, false)">🦅 An eagle</button>
+</div>
+
+<div class="story" id="story3">
+  <h2>🐘 Ellie the Elephant's Big Splash</h2>
+  <p class="story-text">
+    Ellie the Elephant loved to play in the waterhole. One hot afternoon, she invited all the animals for a splash party. They danced, sprayed water, and laughed all day long. Even the grumpy crocodile couldn’t help but smile!
+  </p>
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOjs9QvvUPDQ29kTvXU2S2-kPvcVzN7UYPXw&s" alt="Elephant Splash" />
+  <div class="buttons">
+    <button onclick="readStory('story3')">🔊 Read Aloud</button>
+    <button onclick="toggleText(this)">📖 Read Less</button>
+  </div>
+</div>
+<!-- Sound Effect -->
+<button onclick="playSound('elephantSound')">🐘 Play Trumpet Sound</button>
+<audio id="elephantSound" src="https://www.fesliyanstudios.com/play-mp3/6868"></audio>
+
+<!-- Quiz -->
+<div class="story-quiz">
+  <h3>🧠 Quiz Time!</h3>
+
+  <p>1. What did Ellie love doing the most?</p>
+  <button onclick="checkAnswer(this, true)">💦 Splashing water</button>
+  <button onclick="checkAnswer(this, false)">🌳 Climbing trees</button>
+  <button onclick="checkAnswer(this, false)">🍌 Eating bananas</button>
+
+  <p>2. What did Ellie teach the other animals?</p>
+  <button onclick="checkAnswer(this, false)">🕺 How to dance</button>
+  <button onclick="checkAnswer(this, true)">😄 How to have fun in the water</button>
+  <button onclick="checkAnswer(this, false)">🎤 How to sing</button>
+</div>
+
+<div class="story" id="story4">
+  <h2>🐝 Bella the Brave Bee</h2>
+  <p class="story-text">
+    Bella was not like the other bees. While others buzzed around flowers nearby, Bella dreamed of flying over the meadow to discover a rainbow flower. With courage in her heart, she flew far and found the most colorful flower ever seen!
+  </p>
+  <img src="https://static.vecteezy.com/system/resources/previews/000/521/745/non_2x/a-rainbow-at-the-hilltop-with-a-bee-and-a-beehive-vector.jpg" alt="Brave Bee" />
+  <div class="buttons">
+    <button onclick="readStory('story4')">🔊 Read Aloud</button>
+    <button onclick="toggleText(this)">📖 Read Less</button>
+  </div>
+</div>
+<!-- Sound Effect -->
+<button onclick="playSound('beeSound')">🐝 Play Buzzing Sound</button>
+<audio id="beeSound" src="https://www.fesliyanstudios.com/play-mp3/6885"></audio>
+
+<!-- Quiz -->
+<div class="story-quiz">
+  <h3>🧠 Quiz Time!</h3>
+
+  <p>1. What made Bella special?</p>
+  <button onclick="checkAnswer(this, false)">🍯 She made the most honey</button>
+  <button onclick="checkAnswer(this, true)">💪 She was the bravest</button>
+  <button onclick="checkAnswer(this, false)">😴 She slept the most</button>
+
+  <p>2. What was bella found?</p>
+  <button onclick="checkAnswer(this, false)">🌈 A colorful flower</button>
+  <button onclick="checkAnswer(this, true)">🕷️ A scary spider</button>
+  <button onclick="checkAnswer(this, false)">🌊 A flood</button>
+</div>
+
+<div class="story" id="story5">
+  <h2>🌈 The Rainbow Bridge Adventure</h2>
+  <p class="story-text">
+    One sunny morning, five little animals—Lulu the lamb, Benny the bunny, Toto the turtle, Mia the mouse, and Rafi the raccoon—found a glowing rainbow stretching from their forest to the sky.  
+    “Let’s find out where it leads!” shouted Lulu.  
+    As they crossed the sparkling Rainbow Bridge, each color tested their friendship—Red made them argue, Blue made them feel sad, and Green made them sleepy.  
+    But with kindness, jokes, and holding paws, they made it through together.  
+    At the end, they found a cloud castle filled with singing flowers and cotton candy!  
+    “The real magic,” said Rafi, “was working as a team.” 🌟
+  </p>
+  <img src="https://media.istockphoto.com/id/1394898387/vector/cute-little-pets-vector-illustration.jpg?s=612x612&w=0&k=20&c=voU34oP6iUGY-oLad0epQFwQeziuST0hLBOplre5TGc=" alt="Rainbow Bridge Adventure" />
+  <div class="buttons">
+    <button onclick="readStory('story5')">🔊 Read Aloud</button>
+    <button onclick="toggleText(this)">📖 Read Less</button>
+  </div>
+
+<!-- End of story block -->
+</div>  <!-- ← This is the end of the story block (like story5) -->
+
+<!-- ✅ Now add the quiz and sound block HERE -->
+<!-- Rainbow Sound and Quiz -->
+<button onclick="playSound('magicSound')">✨ Play Magic Sound</button>
+<audio id="magicSound" src="https://www.fesliyanstudios.com/play-mp3/387"></audio>
+
+<div class="story-quiz">
+  <h3>🧠 Quiz Time!</h3>
+  <p>1. What did the animals cross in the story?</p>
+  <button onclick="checkAnswer(this, true)">🌈 A rainbow bridge</button>
+  <button onclick="checkAnswer(this, false)">🌳 A jungle path</button>
+  <button onclick="checkAnswer(this, false)">🏖️ A sandy beach</button>
+
+  <p>2. What was the most important lesson?</p>
+  <button onclick="checkAnswer(this, true)">🤝 Teamwork is magical</button>
+  <button onclick="checkAnswer(this, false)">🍭 Candy is the best</button>
+  <button onclick="checkAnswer(this, false)">😴 Naps solve everything</button>
+</div>
+
+<div class="story" id="story6">
+  <h2>🧭 The Map in Grandpa’s Attic</h2>
+  <p class="story-text">
+    When Mira and Jay visited Grandpa, they climbed up to his dusty attic looking for old toys.  
+    Instead, they found an old scroll tied with string—a treasure map!  
+    With flashlights and backpacks, they followed the map through the garden gnome path, under the laundry vine, and behind the tool shed.  
+    There they found a hidden treehouse with a telescope, books, and snacks.  
+    “This was my secret clubhouse when I was your age,” Grandpa smiled.  
+    Now it’s yours to explore.  
+    Mira and Jay hugged him and named it "Adventure HQ." 🏕️
+  </p>
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoIDD9Ryqq3KbXTVf46hqsQlruSuRbSRKvWA&s" alt="Attic Treasure Map" />
+  <div class="buttons">
+    <button onclick="readStory('story6')">🔊 Read Aloud</button>
+    <button onclick="toggleText(this)">📖 Read Less</button>
+  </div>
+</div>
+<!-- Attic Sound Effect Button -->
+<button onclick="playSound('creakSound')">🏚️ Play Attic Creak</button>
+<audio id="creakSound" src="https://www.fesliyanstudios.com/play-mp3/6672"></audio>
+
+<!-- Quiz for Map Story -->
+<div class="story-quiz">
+  <h3>🧠 Quiz Time!</h3>
+  <p>1. What did Mira and Jay find?</p>
+  <button onclick="checkAnswer(this, true)">🗺️ A treasure map</button>
+  <button onclick="checkAnswer(this, false)">📦 A music box</button>
+  <button onclick="checkAnswer(this, false)">👓 Grandpa’s glasses</button>
+
+  <p>2. What was hidden behind the tool shed?</p>
+  <button onclick="checkAnswer(this, false)">🐱 A lost kitten</button>
+  <button onclick="checkAnswer(this, true)">🌳 A treehouse clubhouse</button>
+  <button onclick="checkAnswer(this, false)">🎁 A surprise party</button>
+</div>
+
+</div>
+
+<footer>
+  <p>🌟 FunZone &copy; 2025 | Story Time is the Best Time! 📚</p>
+</footer>
+
+<script>
+  function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    document.querySelectorAll(".story").forEach(story => {
+      story.classList.toggle("dark-mode");
+    });
+  }
+
+  function readStory(id) {
+    const storyText = document.querySelector(`#${id} .story-text`).textContent;
+    const utterance = new SpeechSynthesisUtterance(storyText);
+    speechSynthesis.cancel(); // stop any previous speech
+    speechSynthesis.speak(utterance);
+  }
+
+  function toggleText(button) {
+    const text = button.textContent.includes("Less") ? "📖 Read More" : "📖 Read Less";
+    button.textContent = text;
+
+    const paragraph = button.closest(".story").querySelector(".story-text");
+    if (paragraph.style.maxHeight) {
+      paragraph.style.maxHeight = "";
+    } else {
+      paragraph.style.maxHeight = "none";
+    }
+  }
+function checkAnswer(button, isCorrect) {
+  if (isCorrect) {
+    button.style.backgroundColor = "#8bc34a";
+    button.textContent += " ✅";
+  } else {
+    button.style.backgroundColor = "#e57373";
+    button.textContent += " ❌";
+  }
+  button.disabled = true;
+}
+
+function playSound(id) {
+  const audio = document.getElementById(id);
+  audio.currentTime = 0;
+  audio.play();
+}
+
+</script>
+
+</body>
+</html>

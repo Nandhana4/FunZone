@@ -1,0 +1,101 @@
+/* Use a fun comic font */
+body {
+  font-family: 'Comic Neue', cursive;
+  background: #ffe9ec;
+  color: #444;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  color: #fff;
+  text-align: center;
+  padding: 30px 10px;
+  border-bottom: 5px dashed #ff6f91;
+}
+
+.navbar {
+  list-style: none;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.navbar a {
+  color: white;
+  background: #ff6f91;
+  padding: 10px 20px;
+  border-radius: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.navbar a:hover {
+  background: #ff3e6c;
+}
+
+main {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.intro {
+  background: #fff3f3;
+  border: 3px dotted #ffb6b9;
+  padding: 20px;
+  border-radius: 25px;
+  display: inline-block;
+  max-width: 600px;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.1);
+}
+
+.main-img {
+  margin-top: 20px;
+  width: 250px;
+  border-radius: 20px;
+}
+
+footer {
+  background-color: #ff6f91;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
+.emoji-options {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.emoji-draggable {
+  font-size: 32px;
+  cursor: grab;
+}
+
+.drop-zone {
+  width: 100px;
+  height: 100px;
+  border: 2px dashed #888;
+  margin: 0 auto 10px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 10px;
+}
+.story-quiz,
+button[onclick^="playSound"] {
+    text-align: center;
+    margin: 20px auto;
+}
+
+.story-quiz h3,
+.story-quiz p {
+    text-align: center;
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Craft Generator - FunZone</title>
+  <style>
+    body {
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      background-color: #fffbe6;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      background-color:#ffb300;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #444;
+      font-weight: bold;
+    }
+
+    h1 {
+      color: #ff6f00;
+    }
+
+    select, button {
+      font-size: 18px;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 10px;
+      border: 2px solid #ffb300;
+      background-color: #fff3e0;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ffe082;
+    }
+
+    .craft-result {
+      margin-top: 30px;
+      border: 3px dashed #ffca28;
+      padding: 20px;
+      border-radius: 15px;
+      background-color: #fffde7;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    img {
+      max-width: 50%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    h3 {
+      color: #ff6f00;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎨 FunZone Craft Generator</h1>
+  <nav>
+  <a href="index.html">Home</a>
+  <a href="games.html">Games</a>
+  <a href="stories.html">Stories</a>
+  <a href="Crafts.html">crafts</a>
+  <a href="Coloring-gallery.html">coloring</a>
+</nav>
+
+
+  <p>Select a craft topic and get step-by-step ideas!</p>
+
+  <select id="craftSelect">
+    <option value="">-- Choose a Craft --</option>
+    <option value="bee">🐝 Paper Bee</option>
+    <option value="flower">🌸 Egg Carton Flower</option>
+    <option value="robot">🤖 Recycled Robot</option>
+    <option value="unicorn">🦄 Unicorn Mask</option>
+    <option value="aquarium">🐠 Paper Plate Aquarium</option>
+    <option value="balloon">🎈 Balloon Painting</option>
+    <option value="turtle">🐢 Bottle Cap Turtle</option>
+  </select>
+  <button onclick="showCraft()">Show Craft</button>
+
+  <div id="craftOutput" class="craft-result" style="display: none;"></div>
+
+  <script>
+    const crafts = {
+      bee: {
+        title: "🐝 Paper Bee Buddy",
+        image: "https://nontoygifts.com/wp-content/uploads/2023/03/Bee-craft_5746.jpg.webp",
+        materials: ["Yellow paper", "Black paper", "Googly eyes", "Glue", "Scissors", "White paper (wings)"],
+        steps: [
+          "Cut 3 yellow and 2 black paper strips of the same size.",
+          "Alternate and glue them into a cylinder to form the bee body.",
+          "Cut out small white paper wings and glue them to the back.",
+          "Stick googly eyes and draw a smiley face on the front.",
+          "Let dry and play with your new buzzing friend!"
+        ]
+      },
+      flower: {
+        title: "🌸 Egg Carton Flower",
+        image: "https://www.thebestideasforkids.com/wp-content/uploads/2018/04/Egg-Carton-Flower.jpg",
+        materials: ["Egg carton", "Scissors", "Paint and brush", "Green straw or stick", "Glue"],
+        steps: [
+          "Cut one cup from the egg carton and trim edges like petals.",
+          "Paint it in bright colors and let it dry.",
+          "Glue it on a green straw or a wooden stick as the stem.",
+          "Add leaves using green paper if you'd like.",
+          "Put your flower in a cup or vase to display!"
+        ]
+      },
+      robot: {
+        title: "🤖 Recycled Robot",
+        image: "https://i.pinimg.com/736x/79/a1/67/79a1673795a2101444bfceedcdf5c4ec.jpg",
+        materials: ["Small cardboard boxes", "Bottle caps", "Glue", "Markers", "Scissors"],
+        steps: [
+          "Stack and glue boxes to form the robot's body and head.",
+          "Attach bottle caps for eyes, arms, or buttons.",
+          "Draw a mouth, control panels, and fun designs.",
+          "Name your robot and show it to your friends!",
+          "Let it dry completely before playing."
+        ]
+      },
+      unicorn: {
+        title: "🦄 Unicorn Mask",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQZAc_en4-7AeC02Sw26NhHRGnPRt8CNEXjA&s",
+        materials: ["Cardstock", "Markers or crayons", "Glitter", "Elastic string", "Scissors", "Glue"],
+        steps: [
+          "Draw or print a unicorn mask template on cardstock.",
+          "Color the unicorn with fun patterns and glitter.",
+          "Cut out eye holes carefully.",
+          "Attach elastic string to the sides of the mask.",
+          "Wear your magical unicorn mask and prance around!"
+        ]
+      },
+      aquarium: {
+        title: "🐠 Paper Plate Aquarium",
+        image: "https://www.bakerross.co.uk/craft-ideas/wp-content/uploads/2022/04/K255-Paper-Plate-Aquarium-Main-White.webp",
+        materials: ["Paper plate", "Blue paint", "Color paper", "Scissors", "Glue", "Plastic wrap"],
+        steps: [
+          "Paint the inside of the paper plate blue for water.",
+          "Cut out fish, seaweed, and bubbles from colored paper.",
+          "Glue the ocean shapes inside the plate.",
+          "Cover the plate with plastic wrap for a glass effect.",
+          "Hang on the wall or door like an underwater scene!"
+        ]
+      },
+      balloon: {
+        title: "🎈 Balloon Painting",
+        image: "https://pics.craiyon.com/2023-10-27/ff759ea651a44a58a30be4cec720db0b.webp",
+        materials: ["Balloons", "Poster paint", "Paper sheets", "Bowls or trays"],
+        steps: [
+          "Blow up a balloon to a small size.",
+          "Pour paint into shallow bowls or trays.",
+          "Dip the balloon gently in the paint.",
+          "Press it on paper to make colorful prints.",
+          "Try overlapping patterns and hang them to dry."
+        ]
+      },
+      turtle: {
+        title: "🐢 Bottle Cap Turtle",
+        image: "https://happytoddlerplaytime.com/wp-content/uploads/2023/02/0PIC-22-1024x1024.jpg",
+        materials: ["Bottle cap", "Green paint", "Green paper", "Glue", "Black marker", "Scissors"],
+        steps: [
+          "Paint a plastic bottle cap green and let it dry.",
+          "Cut out 4 legs, a head, and a tail from green paper.",
+          "Glue them to the back of the cap as the turtle's body.",
+          "Draw eyes and a smile on the turtle's head.",
+          "Let it dry and play with your tiny turtle!"
+        ]
+      }
+    };
+
+    function showCraft() {
+      const selected = document.getElementById("craftSelect").value;
+      const output = document.getElementById("craftOutput");
+
+      if (!selected || !crafts[selected]) {
+        output.style.display = "none";
+        return;
+      }
+
+      const craft = crafts[selected];
+      output.innerHTML = `
+        <h2>${craft.title}</h2>
+        <img src="${craft.image}" alt="${selected} image" />
+        <h3>🧰 Materials Needed:</h3>
+        <ul>${craft.materials.map(item => `<li>${item}</li>`).join('')}</ul>
+        <h3>🪄 Steps:</h3>
+        <ul>${craft.steps.map(step => `<li>${step}</li>`).join('')}</ul>
+      `;
+      output.style.display = "block";
+    }
+  </script>
+
+</body>
+</html>

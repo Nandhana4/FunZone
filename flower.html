@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Color the Flower</title>
+  <style>
+    body { font-family: "Comic Sans MS", cursive; background: #fffef0; text-align: center; padding: 20px; }
+    h2 { color: #e91e63; }
+    svg { width: 300px; margin-top: 20px; border: 2px dashed #f48fb1; background: white; border-radius: 10px; }
+    input[type="color"], button { margin-top: 10px; padding: 8px 10px; border-radius: 8px; border: none; cursor: pointer; font-size: 16px; }
+       button { background-color:#f06292; color: white; }
+    button:hover { background-color: #ec407a ; }
+
+    a { display: inline-block; margin-top: 20px; background: #f06292; color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; }
+    a:hover { background: #ec407a; }
+  </style>
+</head>
+<body>
+  <h2>🌸 Color the Flower!</h2>
+  <p>Pick a color and click a petal to fill it!</p>
+  <input type="color" id="colorPicker" value="#ff69b4">
+  <svg viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="8" fill="#fff" stroke="#000" stroke-width="1" onclick="colorShape(this)" />
+    <circle cx="50" cy="20" r="12" fill="#fff" stroke="#000" stroke-width="1" onclick="colorShape(this)" />
+    <circle cx="80" cy="50" r="12" fill="#fff" stroke="#000" stroke-width="1" onclick="colorShape(this)" />
+    <circle cx="50" cy="80" r="12" fill="#fff" stroke="#000" stroke-width="1" onclick="colorShape(this)" />
+    <circle cx="20" cy="50" r="12" fill="#fff" stroke="#000" stroke-width="1" onclick="colorShape(this)" />
+  </svg>
+  <br>
+<button onclick="saveImage()">🖼️ Save My Coloring</button><br>
+  <a href="coloring-gallery.html">🔙 Back to Gallery</a>
+  <script>
+    function colorShape(el) {
+      const color = document.getElementById("colorPicker").value;
+      el.setAttribute("fill", color);
+    }
+ function saveImage() {
+    const svg = document.querySelector("svg");
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(svgBlob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "my-colored-flower.svg";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+ 
+  </script>
+</body>
+</html>

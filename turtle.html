@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Color the Turtle</title>
+  <style>
+    body { font-family: "Comic Sans MS", cursive; background: #e8f5e9; text-align: center; padding: 20px; }
+    h2 { color: #2e7d32; }
+    svg { width: 300px; margin-top: 20px; border: 2px dashed #81c784; background: white; border-radius: 10px; }
+    input[type="color"], button { margin-top: 10px; padding: 8px 10px; border-radius: 8px; border: none; cursor: pointer; font-size: 16px; }
+    button { background-color: #66bb6a; color: white; }
+    button:hover { background-color: #388e3c; }
+    a { display: inline-block; margin-top: 20px; background: #66bb6a; color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; }
+    a:hover { background: #388e3c; }
+  </style>
+</head>
+<body>
+  <h2>🐢 Color the Turtle!</h2>
+  <p>Click on the turtle to color its parts!</p>
+  <input type="color" id="colorPicker" value="#81c784">
+  <svg id="turtleDrawing" viewBox="0 0 200 120">
+    <ellipse cx="100" cy="60" rx="50" ry="30" fill="#fff" stroke="#000" onclick="colorShape(this)" />
+    <circle cx="50" cy="60" r="10" fill="#fff" stroke="#000" onclick="colorShape(this)" />
+    <circle cx="150" cy="60" r="10" fill="#fff" stroke="#000" onclick="colorShape(this)" />
+    <circle cx="100" cy="30" r="10" fill="#fff" stroke="#000" onclick="colorShape(this)" />
+    <circle cx="100" cy="90" r="10" fill="#fff" stroke="#000" onclick="colorShape(this)" />
+  </svg>
+  <br>
+  <button onclick="saveImage()">🖼️ Save My Coloring</button>
+  <br>
+  <a href="coloring-gallery.html">🔙 Back to Gallery</a>
+
+  <script>
+    function colorShape(el) {
+      const color = document.getElementById("colorPicker").value;
+      el.setAttribute("fill", color);
+    }
+
+    function saveImage() {
+      const svg = document.getElementById("turtleDrawing");
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svgBlob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "my-colored-turtle.svg";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
